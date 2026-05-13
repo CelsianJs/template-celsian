@@ -1,0 +1,17 @@
+{
+  "name": "my-celsian-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "celsian dev",
+    "build": "celsian build",
+    "start": "celsian start"
+  },
+  "dependencies": {
+    "celsian": "^0.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
