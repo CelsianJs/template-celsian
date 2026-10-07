@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": { "node": ">=22 <23" },
   "scripts": {
-    "dev": "celsian dev",
-    "build": "celsian build",
-    "start": "celsian start"
+    "dev": "npm run build && npm start",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "node dist/index.js",
+    "test": "npm run build && node --test test/*.test.mjs"
   },
   "dependencies": {
-    "celsian": "^0.3.0"
+    "celsian": "0.6.5"
   },
   "devDependencies": {
-    "typescript": "^5.5.0"
+    "@types/node": "22.19.0",
+    "typescript": "5.9.3"
   }
 }
