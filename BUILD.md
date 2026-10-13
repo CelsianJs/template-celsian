@@ -35,6 +35,6 @@ There is no separate lint dependency. Typechecking and Node syntax/build checks 
 
 ## Vura build/start contract
 
-The Celsian framework detector checks the `celsian` dependency. With `build` and `start` scripts, its zero-config preset selects a single foreground `web` service and defaults to a TCP probe. Use Settings → Services to select `/health` for an HTTP probe. Choose Node 22 and the repository root; keep install/build dependencies available during the build. The runtime needs the compiled `dist` output and installed production dependencies.
+The Celsian framework detector checks the `celsian` dependency. With no services declared, Vura bundles the app exported from `src/app.ts` (`export const app`) into one Function behind a `/*` route; the CLI does the same before uploading. This runs on the free tier and needs no HTML, `dist` upload or `start` script. `test/server.test.mjs` asserts the export is a ready app that answers through `app.handle(request)`.
 
-Use the normal Git-connected project build, deployment, promotion, and health-check flow. Services admission is team-gated and requires active paid Dedicated entitlement; merely cloning this starter does not grant access. No hosted deployment is claimed by local tests. No persistent disk, database, auth system, queue, or custom resource is configured.
+An always-on `web` service is opt-in: declare it in Settings → Services or `vura.json` (start `npm start`, health `/health`). Services admission is team-gated and requires active paid Dedicated entitlement; merely cloning this starter does not grant access. No hosted deployment is claimed by local tests. No persistent disk, database, auth system, queue, or custom resource is configured.
