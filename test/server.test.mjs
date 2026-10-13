@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { once } from "node:events";
 import test from "node:test";
 import { serve } from "celsian";
-import { createServerApp } from "../dist/app.js";
+import { app, createServerApp } from "../dist/app.js";
 
 function assertJson(response, status) {
   assert.equal(response.status, status);
@@ -35,6 +35,15 @@ test("inject: greeting, health, JSON 404, and method boundaries", async () => {
   const head = await app.inject({ method: "HEAD", url: "/health" });
   assertJson(head, 200);
   assert.equal(await head.text(), "");
+});
+
+// Vura and other fetch-handler hosts import the app instead of running
+// src/index.ts, which binds a port. The export must be a ready app.
+test("app.ts exports a ready app for fetch-handler hosts", async () => {
+  assert.equal(typeof app.handle, "function");
+  const response = await app.handle(new Request("https://demo.example/health"));
+  assertJson(response, 200);
+  assert.deepEqual(await response.json(), { status: "ok" });
 });
 
 test("inject: JSON parsing and the exact 8 KiB byte boundary", async () => {

@@ -14,3 +14,8 @@ export function createServerApp() {
 
   return app;
 }
+
+// The app as a value, for hosts that call `app.handle(request)` themselves
+// instead of running src/index.ts, which binds a port. Vura deploys it this
+// way as one scale-to-zero Function.
+export const app = createServerApp();
